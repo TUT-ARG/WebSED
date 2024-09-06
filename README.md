@@ -7,7 +7,7 @@
 
 WebSED is a web-based application that implements Sound Event Detection (SED) using Pretrained Audio Neural Networks (PANNs). It performs real-time audio tagging and event detection directly in the browser, leveraging the ONNX model format for fast inference. The application ensures user privacy by minimizing backend dependencies.
 
-> **Note**: This project builds on the excellent work of [Qiuqiang Kong's Pretrained Audio Neural Networks (PANNs)](https://github.com/qiuqiangkong/audioset_tagging_cnn). For more details on the PANNs architecture, refer to the official repository.
+> **Note**: This project builds on the work of [Qiuqiang Kong's Pretrained Audio Neural Networks (PANNs)](https://github.com/qiuqiangkong/audioset_tagging_cnn). For more details on the PANNs architecture, refer to the official repository.
 
 ## Features
 
@@ -91,7 +91,7 @@ To set up the project locally, ensure you have the following installed:
     npm run dev
     ```
 
-4. Open your browser and navigate to `http://localhost:3000` to interact with the web application.
+4. Open your browser and navigate to `http://localhost:5173` to interact with the web application.
 
 ## Usage
 
@@ -100,29 +100,15 @@ Once the development server is up and running, you can interact with the WebSED 
 ### Example
 
 1. Start the server using the command `npm run dev`.
-2. Access the application via your browser at `http://localhost:3000`.
+2. Access the application via your browser at `http://localhost:5173`.
 3. Provide an audio input through your microphone or an audio file.
 4. The detected sound events will be displayed in real-time.
 
-## Contributing
-
-Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
-
-1. Fork the repository.
-2. Create a new feature branch (`git checkout -b feature-branch`).
-3. Commit your changes (`git commit -m 'Add a new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a pull request.
-
-Please ensure your code adheres to the project style guidelines and includes appropriate tests.
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## Acknowledgements
-
-Special thanks to [Qiuqiang Kong](https://github.com/qiuqiangkong) for his work on PANNs, which serves as the foundation for this project.
 
 ---
 
