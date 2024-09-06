@@ -169,4 +169,4 @@ coverage
 *.tsbuildinfo
 
 # Large model files
-*.onnx
+#*.onnx
