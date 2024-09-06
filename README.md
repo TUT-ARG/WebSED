@@ -74,7 +74,7 @@ To set up the project locally, ensure you have the following installed:
 
 1. Clone the repository:
 
-        ```bash
+    ```bash
     git clone https://github.com/TUT-ARG/WebSED
     cd WebSED
     ```
@@ -126,5 +126,4 @@ Special thanks to [Qiuqiang Kong](https://github.com/qiuqiangkong) for his work 
 
 ---
 
-Thank you for using WebSED! If you encounter any issues, feel free to open an issue or contact the maintainers.
 
