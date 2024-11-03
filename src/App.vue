@@ -4,8 +4,12 @@
       <h1>Audio Analysis Application</h1>
     </header>
     <main>
-      <AudioUpload @audio-uploaded="handleAudioUploaded" />
-      <AudioProcessor ref="audioProcessor" />
+      <AudioUpload @audio-files-uploaded="handleAudioFilesUploaded" />
+      <AudioProcessor
+        ref="audioProcessor"
+        :audioFiles="audioFiles"
+        :selectedMode="selectedMode"
+      />
     </main>
   </div>
 </template>
@@ -17,13 +21,20 @@ import AudioProcessor from './components/AudioProcessor.vue';
 export default {
   components: {
     AudioUpload,
-    AudioProcessor
+    AudioProcessor,
+  },
+  data() {
+    return {
+      selectedMode: 'tagging', // Default to Audio Tagging
+      audioFiles: [], // Store multiple audio files here
+    };
   },
   methods: {
-    handleAudioUploaded(audioData) {
-      this.$refs.audioProcessor.setAudioData(audioData);
-    }
-  }
+    handleAudioFilesUploaded(files) {
+      this.audioFiles = files; // Set audioFiles to the list of uploaded files
+      this.$refs.audioProcessor.setAudioData(files);
+    },
+  },
 };
 </script>
 
@@ -35,17 +46,17 @@ export default {
 }
 
 header {
-  background-color: #42b983; /* Green header background */
-  color: white; /* White text color */
-  padding: 20px; /* Padding around the header */
-  font-size: 36px; /* Larger font size for the header */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for the header */
+  background-color: #42b983;
+  color: white;
+  padding: 20px;
+  font-size: 36px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 main {
   padding: 20px;
-  background-color: #f4f4f4; /* Light background for the main content */
-  min-height: calc(100vh - 100px); /* Ensures the main content takes up the full height */
+  background-color: #f4f4f4;
+  min-height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
