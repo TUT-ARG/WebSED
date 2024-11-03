@@ -114,7 +114,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import * as ort from 'onnxruntime-web';
 import Papa from 'papaparse';
@@ -370,20 +369,32 @@ export default {
         .join('\n');
     },
     storeFramewiseResults(data, fileName, chunkDuration) {
-      const numFrames = data.length / this.labels.length;
+      const numLabels = this.labels.length;
+      const totalFrames = data.length / numLabels;
+
+      // Ensure numFrames is an integer
+      const numFrames = Math.floor(totalFrames);
+      if (totalFrames !== numFrames) {
+        console.warn(
+          `Number of frames (${totalFrames}) is not an integer, rounding down to ${numFrames}.`
+        );
+      }
+
       const frameDuration = chunkDuration / numFrames;
       const cumulativeFrameIndex = this.cumulativeFrameIndices[fileName];
       const timeOffset = this.cumulativeTimeOffsets[fileName];
 
       for (let i = 0; i < numFrames; i++) {
-        const results = Array.from(
-          { length: this.labels.length },
-          (_, index) => ({
-            label: this.labels[index],
-            probability: data[i * this.labels.length + index],
-          })
-        ).filter((result) => result.probability > 0.1);
-
+        const results = [];
+        for (let j = 0; j < numLabels; j++) {
+          const probability = data[i * numLabels + j];
+          if (probability > 0.1) {
+            results.push({
+              label: this.labels[j],
+              probability: probability,
+            });
+          }
+        }
         if (results.length > 0) {
           this.framewiseResults[fileName].push({
             frame: cumulativeFrameIndex + i,
@@ -396,7 +407,7 @@ export default {
 
       // Update cumulative frame index and time offset
       this.cumulativeFrameIndices[fileName] += numFrames;
-      this.cumulativeTimeOffsets[fileName] += chunkDuration;
+      this.cumulativeTimeOffsets[fileName] += numFrames * frameDuration;
     },
     updateResultsDisplay() {
       // This method can be used if any additional actions are needed when the selected file changes
@@ -469,6 +480,8 @@ export default {
   },
 };
 </script>
+
+
 <style scoped>
 .audio-processor-container {
   display: flex;
