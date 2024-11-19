@@ -148,11 +148,11 @@ export default {
   },
   created() {
     ort.env.wasm.wasmPaths = {
-      'ort-wasm-simd-threaded.wasm': '/model/ort-wasm-simd-threaded.wasm',
+      'ort-wasm-simd-threaded.wasm': '/WebSED/model/ort-wasm-simd-threaded.wasm',
       'ort-wasm-simd-threaded.jsep.wasm':
-        '/model/ort-wasm-simd-threaded.jsep.wasm',
+        '/WebSED/model/ort-wasm-simd-threaded.jsep.wasm',
       'ort-training-wasm-simd-threaded.wasm':
-        '/model/ort-training-wasm-simd-threaded.wasm',
+        '/WebSED/model/ort-training-wasm-simd-threaded.wasm',
     };
     this.loadLabels();
   },
