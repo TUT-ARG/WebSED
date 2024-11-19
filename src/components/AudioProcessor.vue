@@ -120,6 +120,9 @@ import Papa from 'papaparse';
 import JSZip from 'jszip'; // Import JSZip
 import { saveAs } from 'file-saver'; // Import FileSaver
 
+const basePath = process.env.NODE_ENV === 'production' ? '/WebSED' : ''; // Dynamic base path
+
+
 export default {
   props: {
     audioFiles: Array, // Receive the array of audio files
@@ -148,11 +151,11 @@ export default {
   },
   created() {
     ort.env.wasm.wasmPaths = {
-      'ort-wasm-simd-threaded.wasm': '/WebSED/model/ort-wasm-simd-threaded.wasm',
+      'ort-wasm-simd-threaded.wasm': `${basePath}/model/ort-wasm-simd-threaded.wasm`,
       'ort-wasm-simd-threaded.jsep.wasm':
-        '/WebSED/model/ort-wasm-simd-threaded.jsep.wasm',
+        `${basePath}/model/ort-wasm-simd-threaded.jsep.wasm`,
       'ort-training-wasm-simd-threaded.wasm':
-        '/WebSED/model/ort-training-wasm-simd-threaded.wasm',
+        `${basePath}/model/ort-training-wasm-simd-threaded.wasm`,
     };
     this.loadLabels();
   },
@@ -160,7 +163,7 @@ export default {
     try {
       console.log('Starting to load the model...');
       this.session = await ort.InferenceSession.create(
-        '/WebSED/model/Cnn14_DecisionLevelMax.onnx',
+        `${basePath}/model/Cnn14_DecisionLevelMax.onnx`,
         {
           executionProviders: ['wasm'],
         }
@@ -173,7 +176,7 @@ export default {
   methods: {
     async loadLabels() {
       try {
-        const response = await fetch('/WebSED/metadata/class_labels_indices.csv');
+        const response = await fetch(`${basePath}/metadata/class_labels_indices.csv`);
         const csvText = await response.text();
         Papa.parse(csvText, {
           header: true,
