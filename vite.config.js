@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   plugins: [vue()],
+  base: '/WebSED/',
   assetsInclude: ['*/.wasm', '*/.onnx'], // Use globbing pattern
   build: {
     target: 'esnext',
