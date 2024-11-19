@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/WebSED/',
-  assetsInclude: ['*/.wasm', '*/.onnx'], // Use globbing pattern
+  base: '/WebSED/', 
+  assetsInclude: ['*/.wasm', '*/.onnx'], // Include additional asset types
   build: {
     target: 'esnext',
     rollupOptions: {
@@ -22,6 +22,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ['onnxruntime-web']
+    exclude: ['onnxruntime-web'],
   },
 });
