@@ -160,7 +160,7 @@ export default {
     try {
       console.log('Starting to load the model...');
       this.session = await ort.InferenceSession.create(
-        '/model/Cnn14_DecisionLevelMax.onnx',
+        '/WebSED/model/Cnn14_DecisionLevelMax.onnx',
         {
           executionProviders: ['wasm'],
         }
@@ -173,7 +173,7 @@ export default {
   methods: {
     async loadLabels() {
       try {
-        const response = await fetch('/metadata/class_labels_indices.csv');
+        const response = await fetch('/WebSED/metadata/class_labels_indices.csv');
         const csvText = await response.text();
         Papa.parse(csvText, {
           header: true,
