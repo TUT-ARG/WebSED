@@ -119,6 +119,8 @@ import * as ort from 'onnxruntime-web';
 import Papa from 'papaparse';
 import JSZip from 'jszip'; // Import JSZip
 import { saveAs } from 'file-saver'; // Import FileSaver
+const basePath = '/WebSED'; // Base path for GitHub Pages
+
 
 export default {
   props: {
