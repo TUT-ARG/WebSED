@@ -24,7 +24,7 @@ Before converting the model, make sure you have the following dependencies insta
 
 - `torch`
 - `onnx`
-- Pretrained model weights (`Cnn14_16k_mAP=0.438.pth`)
+- Pretrained model weights (`Cnn14_DecisionLevelMax.pth`)
 
 ### Conversion Steps
 
@@ -34,19 +34,49 @@ To convert the model to the ONNX format, follow these steps:
 
     ```python
     import torch
-    from pytorch.models import Cnn14_16k
+    import warnings
+    from pytorch.models import Cnn14_DecisionLevelMax  # Adjust this path if needed
+
+    # Override torch.log10 globally to ensure ONNX compatibility
+    if hasattr(torch, 'log10'):
+        torch.log10 = lambda x: torch.log(x) / torch.log(torch.tensor(10.0))
+
+    # Suppress ONNX export warnings related to unsupported operators
+    warnings.filterwarnings("ignore", category=UserWarning, module="torch.onnx")
 
     def export_model_to_onnx():
-        model = Cnn14_16k(sample_rate=16000, window_size=512, hop_size=160, 
-                          mel_bins=64, fmin=50, fmax=8000, classes_num=527)
-        checkpoint = torch.load('Cnn14_16k_mAP=0.438.pth', map_location='cpu')
+        # Initialize the model with required parameters
+        model = Cnn14_DecisionLevelMax(
+            sample_rate=32000,
+            window_size=1024,
+            hop_size=320,
+            mel_bins=64,
+            fmin=50,
+            fmax=14000,
+            classes_num=527
+        )
+
+        # Load the checkpoint file (update the file path as necessary)
+        checkpoint = torch.load('Cnn14_DecisionLevelMax_mAP=0.385.pth', map_location='cpu')
         model.load_state_dict(checkpoint['model'])
         model.eval()
 
-        dummy_input = torch.randn(1, 112000)  # Input with dynamic audio length
-        torch.onnx.export(model, dummy_input, "Cnn14_16k_112000.onnx", 
-                          export_params=True, opset_version=12, 
-                          input_names=['input'], output_names=['clipwise_output', 'embedding'])
+        # Define a dummy input for the model (adjust size if needed)
+        dummy_input = torch.randn(1, 320000)  # Example input size for 32kHz audio
+
+        # Export the model to ONNX format with opset version 12
+        torch.onnx.export(
+            model,
+            dummy_input,
+            "Cnn14_DecisionLevelMax.onnx",
+            export_params=True,
+            opset_version=12,
+            input_names=['input'],
+            output_names=['clipwise_output', 'framewise_output'],
+            dynamic_axes={'input': {1: 'audio_length'}}  # Allows variable input lengths
+        )
+
+        print("Model successfully converted to ONNX format.")
 
     if __name__ == "__main__":
         export_model_to_onnx()
@@ -58,7 +88,7 @@ To convert the model to the ONNX format, follow these steps:
     python convert_to_onnx.py
     ```
 
-This will create the ONNX model file `Cnn14_16k_112000.onnx`, which you can use in the web application.
+This will create the ONNX model file `Cnn14_DecisionLevelMax_mAP=0.385.onnx`, which you can use in the web application.
 
 ## Local Development Setup
 
