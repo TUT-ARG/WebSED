@@ -149,20 +149,19 @@ export default {
     };
   },
   created() {
-    ort.env.wasm.wasmPaths = {
-      'ort-wasm-simd-threaded.wasm': '/WebSED/model/ort-wasm-simd-threaded.wasm',
-      'ort-wasm-simd-threaded.jsep.wasm':
-        '/WebSED/model/ort-wasm-simd-threaded.jsep.wasm',
-      'ort-training-wasm-simd-threaded.wasm':
-        '/WebSED/model/ort-training-wasm-simd-threaded.wasm',
-    };
-    this.loadLabels();
-  },
+  ort.env.wasm.wasmPaths = {
+    'ort-wasm-simd-threaded.wasm': 'https://tiny-audio-recognition-files.2.rahtiapp.fi/data/model/ort-wasm-simd-threaded.wasm',
+    'ort-wasm-simd-threaded.jsep.wasm': 'https://tiny-audio-recognition-files.2.rahtiapp.fi/data/model/ort-wasm-simd-threaded.jsep.wasm',
+    'ort-training-wasm-simd-threaded.wasm': 'https://tiny-audio-recognition-files.2.rahtiapp.fi/data/model/ort-training-wasm-simd-threaded.wasm',
+  };
+  this.loadLabels();
+}
+,
   async mounted() {
     try {
       console.log('Starting to load the model...');
       this.session = await ort.InferenceSession.create(
-        '/WebSED/model/Cnn14_DecisionLevelMax.onnx',
+        'https://tiny-audio-recognition-files.2.rahtiapp.fi/data/model/Cnn14_DecisionLevelMax.onnx',
         {
           executionProviders: ['wasm'],
         }
