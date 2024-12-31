@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/WebSED/', // Explicit base path for deployment on GitHub Pages
-  assetsInclude: ['*/.wasm', '*/.onnx'], // Include additional asset types
+  base: '/WebSED/', // Explicit base path for deployment
+  assetsInclude: ['**/*.wasm', '**/*.onnx'], // Include additional asset types
   build: {
     target: 'esnext',
     rollupOptions: {
