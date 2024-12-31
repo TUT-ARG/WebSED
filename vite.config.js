@@ -3,14 +3,14 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/WebSED/', // Explicit base path for deployment
+  base: '/WebSED/', // Base URL for deployment on GitHub Pages
   assetsInclude: ['**/*.wasm', '**/*.onnx'], // Include additional asset types
   build: {
     target: 'esnext',
     rollupOptions: {
       output: {
         manualChunks: {
-          'onnx-wasm': ['onnxruntime-web'], // Splitting onnx-wasm for optimization
+          'onnx-wasm': ['onnxruntime-web'], // Optimize onnxruntime-web
         },
       },
     },
