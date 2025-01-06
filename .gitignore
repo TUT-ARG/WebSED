@@ -175,3 +175,5 @@ public/model/*.onnx
 
 # Allow metadata to be pushed
 !public/metadata/**
+node_modules
+
