@@ -1,13 +1,20 @@
 # WebSED: Web-Based Sound Event Detection
 
 **Supervisors**: Tuomas Virtanen, Toni Heittola  
-**Author**: Bilal Lamsili
+**Author**: Bilal Lamsili  
 
 ## Overview
 
 WebSED is a web-based application that implements Sound Event Detection (SED) using Pretrained Audio Neural Networks (PANNs). It performs real-time audio tagging and event detection directly in the browser, leveraging the ONNX model format for fast inference. The application ensures user privacy by minimizing backend dependencies.
 
 > **Note**: This project builds on the work of [Qiuqiang Kong's Pretrained Audio Neural Networks (PANNs)](https://github.com/qiuqiangkong/audioset_tagging_cnn). For more details on the PANNs architecture, refer to the official repository.
+
+## Try the Application
+
+You can try or use the WebSED application by visiting the following link:  
+[**WebSED Live Application**](https://audio-ai-files.2.rahtiapp.fi/WebSED/)
+
+---
 
 ## Features
 
@@ -134,12 +141,6 @@ Once the development server is up and running, you can interact with the WebSED 
 3. Provide an audio input through your microphone or an audio file.
 4. The detected sound events will be displayed in real-time.
 
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-
----
-
-
